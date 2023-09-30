@@ -96,9 +96,33 @@ def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 df = pd.read_csv(
     "WK2_Airbnb_Amsterdam_listings_proj_solution.csv", index_col=0
 )
+
 st.dataframe(filter_dataframe(df))
 
 # add map
+
+
+# Create the plotly express figure
+fig = px.scatter_mapbox(
+    dataframe,
+    lat="Latitude",
+    lon="Longitude",
+    color="Location",
+    color_discrete_sequence=["blue", "red"],
+    zoom=11,
+    height=500,
+    width=800,
+    hover_name="Price",
+    hover_data=["Meters from chosen location", "Location"],
+    labels={"color": "Locations"},
+)
+fig.update_geos(center=dict(lat=dataframe.iloc[0][2], lon=dataframe.iloc[0][3]))
+fig.update_layout(mapbox_style="stamen-terrain")
+
+# Show the figure
+st.plotly_chart(fig, use_container_width=True)
+
+'''
 fig = px.scatter_mapbox(
     df,
     lat='latitude',
@@ -112,4 +136,4 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig)
-
+''''
