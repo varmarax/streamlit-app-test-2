@@ -104,7 +104,7 @@ st.dataframe(filter_dataframe(df))
 
 # Create the plotly express figure
 fig = px.scatter_mapbox(
-    dataframe,
+    df,
     lat="latitude",
     lon="longitude",
     zoom=10,
