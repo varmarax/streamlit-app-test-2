@@ -1,6 +1,6 @@
 import pandas as pd
-import plotly.express as px
 import streamlit as st
+import plotly.express as px
 
 from pandas.api.types import (
     is_categorical_dtype,
@@ -104,36 +104,17 @@ st.dataframe(filter_dataframe(df))
 
 # Create the plotly express figure
 fig = px.scatter_mapbox(
-    df,
-    lat="Latitude",
-    lon="Longitude",
-    color="Location",
-    color_discrete_sequence=["blue", "red"],
-    zoom=11,
+    dataframe,
+    lat="latitude",
+    lon="longitude",
+    zoom=10,
     height=500,
     width=800,
-    hover_name="Price",
-    hover_data=["Meters from chosen location", "Location"],
-    labels={"color": "Locations"},
+    hover_name="five_day_dollar_price",
+#    hover_data=["Meters from chosen location", "Location"],
 )
-fig.update_geos(center=dict(lat=df.iloc[0][2], lon=df.iloc[0][3]))
+fig.update_geos(center=dict(lat=52.36, lon=4.8852))
 fig.update_layout(mapbox_style="stamen-terrain")
 
 # Show the figure
 st.plotly_chart(fig, use_container_width=True)
-
-'''
-fig = px.scatter_mapbox(
-    df,
-    lat='latitude',
-    lon='longitude',
-    hover_name='five_day_dollar_price',
-    zoom=10
-)
-
-fig.update_layout(
-    mapbox_style="open-street-map",
-)
-
-st.plotly_chart(fig)
-'''
