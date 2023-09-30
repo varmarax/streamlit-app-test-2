@@ -104,7 +104,7 @@ st.dataframe(filter_dataframe(df))
 
 # Create the plotly express figure
 fig = px.scatter_mapbox(
-    dataframe,
+    df,
     lat="Latitude",
     lon="Longitude",
     color="Location",
@@ -116,7 +116,7 @@ fig = px.scatter_mapbox(
     hover_data=["Meters from chosen location", "Location"],
     labels={"color": "Locations"},
 )
-fig.update_geos(center=dict(lat=dataframe.iloc[0][2], lon=dataframe.iloc[0][3]))
+fig.update_geos(center=dict(lat=df.iloc[0][2], lon=df.iloc[0][3]))
 fig.update_layout(mapbox_style="stamen-terrain")
 
 # Show the figure
