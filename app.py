@@ -1,5 +1,7 @@
 import pandas as pd
 import streamlit as st
+import plotly.express as px
+
 from pandas.api.types import (
     is_categorical_dtype,
     is_datetime64_any_dtype,
@@ -95,3 +97,19 @@ df = pd.read_csv(
     "WK2_Airbnb_Amsterdam_listings_proj_solution.csv", index_col=0
 )
 st.dataframe(filter_dataframe(df))
+
+# add map
+fig = px.scatter_mapbox(
+    df,
+    lat='latitude',
+    lon='longitude',
+    hover_name='five_day_dollar_price',
+    zoom=10
+)
+
+fig.update_layout(
+    mapbox_style="open-street-map",
+)
+
+st.plotly_chart(fig)
+
