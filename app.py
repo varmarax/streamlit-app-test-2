@@ -1,3 +1,4 @@
+%%writefile app.py
 import pandas as pd
 import streamlit as st
 import plotly.express as px
@@ -97,24 +98,24 @@ df = pd.read_csv(
     "WK2_Airbnb_Amsterdam_listings_proj_solution.csv", index_col=0
 )
 
-st.dataframe(filter_dataframe(df))
+filtered_df = filter_dataframe(df)
 
-# add map
+# Display the filtered table
+st.dataframe(filtered_df)
 
-
-# Create the plotly express figure
+# Create the plotly express figure for the map
 fig = px.scatter_mapbox(
-    df,
+    filtered_df,  # Use the filtered DataFrame
     lat="latitude",
     lon="longitude",
     zoom=10,
     height=500,
     width=800,
     hover_name="five_day_dollar_price",
-#    hover_data=["Meters from chosen location", "Location"],
+    #    hover_data=["Meters from chosen location", "Location"],
 )
 fig.update_geos(center=dict(lat=52.36, lon=4.8852))
 fig.update_layout(mapbox_style="stamen-terrain")
 
-# Show the figure
+# Show the map figure
 st.plotly_chart(fig, use_container_width=True)
